@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Budgeting App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Budgeting App</h1>
+        <nav>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard">
+            <div class="income-section">
+                <h3>Income</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Amount</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for income in incomes %}
+                            <tr>
+                                <td>{{ income['source'] }}</td>
+                                <td>{{ income['amount'] }}</td>
+                                <td>{{ income['frequency'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ url_for('add_income') }}" class="button">Add Income</a>
+            </div>
+
+            <div class="expense-section">
+                <h3>Expenses</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in expenses %}
+                            <tr>
+                                <td>{{ expense['category'] }}</td>
+                                <td>{{ expense['amount'] }}</td>
+                                <td>{{ expense['date'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ url_for('add_expense') }}" class="button">Add Expense</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 Budgeting App</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Budgeting App</h1>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>Track Your Finances, Achieve Your Goals</h2>
+            <p>Take control of your budget with our user-friendly budgeting tool. Easily track your income, expenses, and monitor your progress towards your financial goals.</p>
+        </section>
+
+        <section class="actions">
+            <a href="{{ url_for('signup') }}" class="button">Sign Up</a>
+            <a href="{{ url_for('login') }}" class="button">Log In</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 Budgeting App</p>
+    </footer>
+</body>
+</html>

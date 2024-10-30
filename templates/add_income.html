@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Income - Budgeting App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Budgeting App</h1>
+        <nav>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="add-income">
+            <h2>Add Income</h2>
+            <form method="POST" action="{{ url_for('add_income') }}">
+                <div class="form-group">
+                    <label for="source">Source:</label>
+                    <input type="text" id="source" name="source" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="frequency">Frequency:</label>
+                    <select id="frequency" name="frequency" required>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="button">Add Income</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 Budgeting App</p>
+    </footer>
+</body>
+</html>
