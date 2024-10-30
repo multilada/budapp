@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, g
+from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 import hashlib
 
@@ -62,14 +62,6 @@ def create_tables():
     )
     conn.commit()
     close_db(conn)
-
-
-@app.teardown_appcontext
-def close_connection(exception):
-    """Closes the database connection at the end of the request."""
-    db = getattr(g, "_database", None)
-    if db is not None:
-        close_db(db)
 
 
 # Create tables if they don't exist
