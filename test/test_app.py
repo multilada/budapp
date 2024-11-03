@@ -37,7 +37,7 @@ class BudgetingAppTests(unittest.TestCase):
             "/signup", data={"username": username, "password": password}
         )
         self.assertEqual(response.status_code, 302)  # Redirects to login
-        self.assertIn(b"login", response.headers["Location"])
+        self.assertIn("login", response.location)
 
         # Check if user is added to the database
         cursor = self.db.cursor()
@@ -77,7 +77,7 @@ class BudgetingAppTests(unittest.TestCase):
             "/login", data={"username": username, "password": password}
         )
         self.assertEqual(response.status_code, 302)
-        self.assertIn(b"dashboard", response.headers["Location"])
+        self.assertIn("dashboard", response.location)
 
     def test_login_post_failure(self):
         """Test the login page (POST request) with invalid credentials."""
@@ -91,7 +91,6 @@ class BudgetingAppTests(unittest.TestCase):
         """Test the dashboard page (logged in)."""
         username = "testuser"
         password = "testpassword"
-        password_hash = hashlib.sha256(password.encode()).hexdigest()
         self.app.post(
             "/signup", data={"username": username, "password": password}
         )  # Create user
@@ -100,19 +99,18 @@ class BudgetingAppTests(unittest.TestCase):
         )  # Log in
         response = self.app.get("/dashboard")
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b"Your Dashboard", response.data)
+        self.assertIn(b"Expenses", response.data)
 
     def test_dashboard_not_logged_in(self):
         """Test the dashboard page (not logged in)."""
         response = self.app.get("/dashboard")
         self.assertEqual(response.status_code, 302)
-        self.assertIn(b"login", response.headers["Location"])
+        self.assertIn("login", response.location)
 
     def test_add_income_logged_in(self):
         """Test the add income page (logged in)."""
         username = "testuser"
         password = "testpassword"
-        password_hash = hashlib.sha256(password.encode()).hexdigest()
         self.app.post(
             "/signup", data={"username": username, "password": password}
         )  # Create user
@@ -127,13 +125,12 @@ class BudgetingAppTests(unittest.TestCase):
         """Test the add income page (not logged in)."""
         response = self.app.get("/add_income")
         self.assertEqual(response.status_code, 302)
-        self.assertIn(b"login", response.headers["Location"])
+        self.assertIn("login", response.location)
 
     def test_add_income_post(self):
         """Test adding income (POST request)."""
         username = "testuser"
         password = "testpassword"
-        password_hash = hashlib.sha256(password.encode()).hexdigest()
         self.app.post(
             "/signup", data={"username": username, "password": password}
         )  # Create user
@@ -145,7 +142,7 @@ class BudgetingAppTests(unittest.TestCase):
             data={"source": "Salary", "amount": 3000.00, "frequency": "Monthly"},
         )
         self.assertEqual(response.status_code, 302)  # Redirects to dashboard
-        self.assertIn(b"dashboard", response.headers["Location"])
+        self.assertIn("dashboard", response.location)
 
         # Check if income is added to the database
         cursor = self.db.cursor()
@@ -159,7 +156,6 @@ class BudgetingAppTests(unittest.TestCase):
         """Test the add expense page (logged in)."""
         username = "testuser"
         password = "testpassword"
-        password_hash = hashlib.sha256(password.encode()).hexdigest()
         self.app.post(
             "/signup", data={"username": username, "password": password}
         )  # Create user
@@ -174,13 +170,12 @@ class BudgetingAppTests(unittest.TestCase):
         """Test the add expense page (not logged in)."""
         response = self.app.get("/add_expense")
         self.assertEqual(response.status_code, 302)
-        self.assertIn(b"login", response.headers["Location"])
+        self.assertIn("login", response.location)
 
     def test_add_expense_post(self):
         """Test adding expense (POST request)."""
         username = "testuser"
         password = "testpassword"
-        password_hash = hashlib.sha256(password.encode()).hexdigest()
         self.app.post(
             "/signup", data={"username": username, "password": password}
         )  # Create user
@@ -192,7 +187,7 @@ class BudgetingAppTests(unittest.TestCase):
             data={"category": "Food", "amount": 50.00, "date": "2023-12-12"},
         )
         self.assertEqual(response.status_code, 302)  # Redirects to dashboard
-        self.assertIn(b"dashboard", response.headers["Location"])
+        self.assertIn("dashboard", response.location)
 
         # Check if expense is added to the database
         cursor = self.db.cursor()
@@ -206,7 +201,6 @@ class BudgetingAppTests(unittest.TestCase):
         """Test the logout route."""
         username = "testuser"
         password = "testpassword"
-        password_hash = hashlib.sha256(password.encode()).hexdigest()
         self.app.post(
             "/signup", data={"username": username, "password": password}
         )  # Create user
@@ -215,7 +209,7 @@ class BudgetingAppTests(unittest.TestCase):
         )  # Log in
         response = self.app.get("/logout")
         self.assertEqual(response.status_code, 302)
-        self.assertIn(b"/", response.headers["Location"])  # Redirects to home page
+        self.assertIn("/", response.location)  # Redirects to home page
 
 
 if __name__ == "__main__":

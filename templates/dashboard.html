@@ -45,16 +45,18 @@
                     <thead>
                         <tr>
                             <th>Category</th>
+                            <th>Spending Category</th>
                             <th>Amount</th>
-                            <th>Date</th>
+                            <th>Frequency</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for expense in expenses %}
                             <tr>
                                 <td>{{ expense['category'] }}</td>
+                                <td>{{ expense['spending_category'] }}</td>
                                 <td>{{ expense['amount'] }}</td>
-                                <td>{{ expense['date'] }}</td>
+                                <td>{{ expense['frequency'] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

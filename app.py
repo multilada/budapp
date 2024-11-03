@@ -54,8 +54,9 @@ def create_tables():
           expense_id INTEGER PRIMARY KEY AUTOINCREMENT,
           user_id INTEGER,
           category TEXT NOT NULL,
+          spending_category TEXT NOT NULL,
           amount REAL NOT NULL,
-          date TEXT NOT NULL,
+          frequency TEXT NOT NULL,
           FOREIGN KEY (user_id) REFERENCES users(user_id)
       )
   """
@@ -92,10 +93,12 @@ def signup():
                 (username, password_hash),
             )
             conn.commit()
-            close_db(conn)
             return redirect(url_for("login"))
         except sqlite3.IntegrityError:
             return render_template("signup.html", error="Username already exists.")
+        finally:
+            close_db(conn)
+
     return render_template("signup.html")
 
 
@@ -174,14 +177,15 @@ def add_expense():
     if user_id:
         if request.method == "POST":
             category = request.form["category"]
+            spending_category = request.form["spending_category"]
             amount = request.form["amount"]
-            date = request.form["date"]
+            frequency = request.form["frequency"]
 
             conn = get_db_connection()
             cursor = conn.cursor()
             cursor.execute(
-                "INSERT INTO expenses (user_id, category, amount, date) VALUES (?, ?, ?, ?)",
-                (user_id, category, amount, date),
+                "INSERT INTO expenses (user_id, category, spending_category, amount, frequency) VALUES (?, ?, ?, ?, ?)",
+                (user_id, category, spending_category, amount, frequency),
             )
             conn.commit()
             close_db(conn)
