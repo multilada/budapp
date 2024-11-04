@@ -107,36 +107,59 @@ footer {
   width: 100%;
 }
 
+/* ... (previous styles) ... */
+
 /* Dashboard Styles */
 .dashboard {
   display: flex;
+  flex-direction: column; /* Stack elements vertically on mobile */
   justify-content: space-between;
 }
 
 .income-section,
 .expense-section {
-  width: 48%;
+  width: 100%; /* Occupy full width on mobile */
   padding: 1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
+  margin-bottom: 1rem; /* Add space between sections */
 }
 
-.income-section h3,
-.expense-section h3 {
-  margin-bottom: 1rem;
-}
-
+/* Table Styles */
 table {
   width: 100%;
   border-collapse: collapse;
+  overflow-x: auto; /* Add horizontal scroll for long tables */
 }
 
 th, td {
   padding: 0.8rem;
   text-align: left;
   border: 1px solid #ddd;
+  font-size: 0.9rem; /* Reduce font size for mobile */
 }
 
 th {
   background-color: #f0f0f0;
+}
+
+/* Mobile Responsive Table */
+@media (max-width: 600px) {
+  /* Adjust these breakpoints as needed */
+  table th,
+  table td {
+    display: block; /* Display table elements as blocks */
+    text-align: left; /* Align text to the left */
+  }
+
+  /* Add labels for each table cell */
+  table th {
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  table td {
+    padding-top: 0.5rem;
+  }
 }
